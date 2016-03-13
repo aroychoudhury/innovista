@@ -23,8 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.verizon.userservices.application.UserServicesApplication;
-import org.verizon.userservices.domain.User;
-import org.verizon.userservices.domain.WorkGroup;
+import org.verizon.userservices.domain.AppUser;
+import org.verizon.userservices.domain.AppGroup;
 
 /**
  * Integration tests for {@link UserRepository}.
@@ -43,17 +43,17 @@ public class UserRepositoryIntegrationTests {
 	@Test
 	public void executesQueryMethodsCorrectly() {
 
-		//User userName = this.repository.findUserByFirstName("Rao");
-		//List<User> users = this.repository.findAll();
-		//User userName = this.repository.findUserByUserId(101);
+		//AppUser userName = this.repository.findUserByFirstName("Rao");
+		//List<AppUser> users = this.repository.findAll();
+		//AppUser userName = this.repository.findUserByUserId(101);
 		//this.repository.deleteUserByUserId(102);
-		//User userName = this.repository.findByGarmLevel(101);
+		//AppUser userName = this.repository.findByGarmLevel(101);
 		
-		//WorkGroup findWorkGroupById = workgrouprep.findWorkGroupById(1002);
+		//AppGroup findWorkGroupById = workgrouprep.findWorkGroupById(1002);
 		int findWorkGroupById = 1001;
-		//List<User> users = this.repository.findAllUsersByWorkGroup(workgrouprep.getOne(findWorkGroupById));
-		WorkGroup wkg = workgrouprep.findWorkGroupById(findWorkGroupById);
-		List<User> users = this.repository.findAllUsersByWorkGroup(wkg);
+		//List<AppUser> users = this.repository.findAllUsersByWorkGroup(workgrouprep.getOne(findWorkGroupById));
+		AppGroup wkg = workgrouprep.findWorkGroupById(findWorkGroupById);
+		List<AppUser> users = this.repository.findAllUsersByWorkGroup(wkg);
 		//System.out.println("Username::::"+userName + "--------------------" + users);
 		
 		System.out.println("users::::"+users.size());

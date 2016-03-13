@@ -3,8 +3,8 @@ package org.verizon.userservices.service;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.verizon.userservices.domain.User;
-import org.verizon.userservices.domain.WorkGroup;
+import org.verizon.userservices.domain.AppUser;
+import org.verizon.userservices.domain.AppGroup;
 
 /**
  * This UserServiceRepository class is used to define all the methods related to UserServiceRepository.
@@ -12,17 +12,14 @@ import org.verizon.userservices.domain.WorkGroup;
  *
  */
 
-public interface UserServiceRepository extends JpaRepository<User, Integer>{
+public interface UserServiceRepository extends JpaRepository<AppUser, Integer>{
 
-	User findUserByUserId(int userId);
+	AppUser findUserByFirstName(String fname);
 
-	User findUserByFirstName(String fname);
+	AppUser findUserByLastName(String fname);
 
-	void deleteUserByUserId(int userId);
+	AppUser findByGarmLevel(int userId);
 
-	User findByGarmLevel(int userId);
-
-	List<User> findAllUsersByWorkGroup(WorkGroup wrkgrpId);
-
+	List<AppUser> findAllUsersByWorkGroup(AppGroup wrkgrpId);
 
 }

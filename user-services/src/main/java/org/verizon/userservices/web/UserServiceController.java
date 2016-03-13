@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.verizon.userservices.domain.User;
+import org.verizon.userservices.domain.AppUser;
 import org.verizon.userservices.service.UserService;
 
 @Controller
@@ -20,7 +20,7 @@ public class UserServiceController {
 	@ResponseBody
 	@Transactional
 	public void registerUser() {
-		User user = new User();
+		AppUser user = new AppUser();
 		userService.registerUser(user);
 	}
 }

@@ -1,12 +1,12 @@
 package org.verizon.userservices.service;
 
-import org.verizon.userservices.domain.WorkGroup;
+import org.verizon.userservices.domain.AppGroup;
 
 public interface UserWorkGroupService {
 	
 	//registerUserGroup()
-	WorkGroup getWorkGroupById(int id);
-	//User getUserWorkGroupById(int id);
+	AppGroup getWorkGroupById(int id);
+	//AppUser getUserWorkGroupById(int id);
 	//getUserGroupByName()
 	//getUserGroupGarm()
 	//getUserGroupGsam()

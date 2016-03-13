@@ -4,18 +4,13 @@
 
 -- =================================================================================================
 
-insert into work_group(id, wkgrp_name, wkgrp_desc) values (1001, 'HASALL', 'General for all the users');
-insert into user(user_Id, first_name, last_name, garm_level, email_id, user_active, workgroup_id) values (101, 'Rao', 'Ganguri', 1, 'rao@verizon.com', 'Yes', 1001);
-insert into user(user_Id, first_name, last_name, garm_level, email_id, user_active, workgroup_id) values (102, 'sss', 'rrrr', 1, 'ssao@verizon.com', 'Yes', 1001);
-insert into user(user_Id, first_name, last_name, garm_level, email_id, user_active, workgroup_id) values (103, 'nnn', 'oooo', 1, 'nnao@verizon.com', 'Yes', 1001);
+insert into app_group(group_id, group_name, group_desc, active_ind) values (1001, 'HASALL', 'General for all the users', 'A');
+insert into app_user(user_id, original_id, first_name, last_name, garm_level, gsam_level, email_id, active_ind, app_group_id) values (101, 'v906567', 'Rao', 'Ganguri', 1, '8AUS', 'rao@verizon.com', 'A', 1001);
+insert into app_user(user_id, original_id, first_name, last_name, garm_level, gsam_level, email_id, active_ind, app_group_id) values (102, 'v567343', 'sss', 'rrrr', 1, '8AUS', 'ssao@verizon.com', 'A', 1001);
+insert into app_user(user_id, original_id, first_name, last_name, garm_level, gsam_level, email_id, active_ind, app_group_id) values (103, 'v456544', 'nnn', 'oooo', 1, '8AUS', 'nnao@verizon.com', 'A', 1001);
 
+------------------ 2nd Work Group ----------------------------
+insert into app_group(group_id, group_name, group_desc, active_ind) values (1002, 'ETMS_DEV', 'Etms dev testing', 'A');
+insert into app_user(user_id, original_id, first_name, last_name, garm_level, gsam_level, email_id, active_ind, app_group_id) values (104, 'v123132', 'Brao', 'Brao123', 1, '8AUS', 'brao@verizon.com', 'A', 1002);
 
-insert into work_group(id, wkgrp_name, wkgrp_desc) values (1002, 'ETMS Dev', 'Etms dev testing');
-insert into user(user_Id, first_name, last_name, garm_level, email_id, user_active, workgroup_id) values (104, 'Brao', 'Brao123', 1, 'brao@verizon.com', 'No', 1002);
-
-insert into work_group(id, wkgrp_name, wkgrp_desc) values (1003, 'ETMS Test', 'For Testing');
-insert into user(user_Id, first_name, last_name, garm_level, email_id, user_active, workgroup_id) values (105, 'Abh', 'R123', 1, 'abh@verizon.com', 'Yes', 1003);
-
-insert into work_group(id, wkgrp_name, wkgrp_desc) values (1004, 'TEST 212', 'Tet 231111');
-insert into user(user_Id, first_name, last_name, garm_level, email_id, user_active, workgroup_id) values (106, 'irfan', '123333', 1, 'irfan@verizon.com', 'No', 1004);
 

@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.verizon.userservices.application.UserServicesApplication;
-import org.verizon.userservices.domain.WorkGroup;
+import org.verizon.userservices.domain.AppGroup;
 
 /**
  * Integration tests for {@link UserRepository}.
@@ -38,11 +38,11 @@ public class UserWorkGroupRepositoryIntegrationTests {
 	@Test
 	public void executesQueryMethodsCorrectly() {
 
-		//User userName = this.repository.findUserByFirstName("Rao");
-		//List<User> users = this.repository.findAll();
-		//User userName = this.repository.findUserByUserId(101);
+		//AppUser userName = this.repository.findUserByFirstName("Rao");
+		//List<AppUser> users = this.repository.findAll();
+		//AppUser userName = this.repository.findUserByUserId(101);
 		//this.repository.deleteUserByUserId(102);
-		WorkGroup wkgrp = this.repository.findWorkGroupById(1001);
+		AppGroup wkgrp = this.repository.findWorkGroupById(1001);
 		
 		//System.out.println("Username::::"+userName + "--------------------" + users);
 		

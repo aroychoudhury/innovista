@@ -1,11 +1,11 @@
 package org.verizon.userservices.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.verizon.userservices.domain.WorkGroup;
+import org.verizon.userservices.domain.AppGroup;
 
-public interface UserWorkGroupServiceRepository extends JpaRepository<WorkGroup, Integer >{
+public interface UserWorkGroupServiceRepository extends JpaRepository<AppGroup, Integer >{
 
-	WorkGroup findWorkGroupById(int id);
+	AppGroup findWorkGroupById(int id);
 
 
 }

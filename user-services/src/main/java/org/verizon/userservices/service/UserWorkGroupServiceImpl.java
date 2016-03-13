@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.verizon.userservices.domain.WorkGroup;
+import org.verizon.userservices.domain.AppGroup;
 
 @Component("userWorkGroupService")
 @Transactional
@@ -21,13 +21,13 @@ public class UserWorkGroupServiceImpl implements UserWorkGroupService{
 	}
 
 	@Override
-	public WorkGroup getWorkGroupById(int id) {
+	public AppGroup getWorkGroupById(int id) {
 		Assert.notNull(id, "Id must not be null");
 		return this.userWkGrpRepository.findWorkGroupById(id);
 	}
 
 	/*@Override
-	public User getUserWorkGroupById(int id) {
+	public AppUser getUserWorkGroupById(int id) {
 		return null;
 	}*/
 
