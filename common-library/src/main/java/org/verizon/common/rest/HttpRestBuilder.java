@@ -81,8 +81,7 @@ public class HttpRestBuilder {
     public HttpPost post(String url, EntityConstructor constructor) {
         HttpPost httpPost = new HttpPost(url);
         try {
-            if (null != constructor)
-                httpPost.setEntity(constructor.constructEntity());
+            httpPost.setEntity(constructor.constructEntity());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -162,10 +161,19 @@ public class HttpRestBuilder {
 
         @Override
         public String toString() {
-            return "Builder [url=" + url + ", method=" + method + ", requestObj=" + requestObj + ", constructor=" + constructor + ", extractor=" + extractor + "]";
+            return "Builder [" + url + " " + method + " "
+                    + (null != requestObj ? requestObj.getClass().getSimpleName() : "") + " "
+                    + (null != constructor ? constructor.getClass().getSimpleName() : "") + " "
+                    + (null != extractor ? extractor.getClass().getSimpleName() : "") + "]";
         }
 
         public Object build() {
+            if (null != requestObj && null == constructor) {
+                throw new IllegalArgumentException("For submitting a Request Object a Constructor is required.");
+            }
+            if (null == extractor) {
+                throw new IllegalArgumentException("For receiving a Response an Extractor is required.");
+            }
             return new HttpRestBuilder().construct(
                 this.url, this.method, this.headers, this.params, this.constructor, this.extractor);
         }

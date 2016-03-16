@@ -1,4 +1,4 @@
-package tests;
+package org.verizon.sample;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -13,8 +13,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * This class is the same as the ApacheHttpRestClient2 class, but with fewer
  * try/catch clauses, and fewer comments.
  */
+@SuppressWarnings("deprecation")
 public class ApacheHttpRestClient3 {
 
+    @SuppressWarnings("resource")
     public final static void main(String[] args) {
 
         HttpClient httpClient = new DefaultHttpClient();
