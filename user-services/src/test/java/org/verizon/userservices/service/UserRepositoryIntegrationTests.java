@@ -15,6 +15,7 @@
  */
 package org.verizon.userservices.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -52,8 +53,8 @@ public class UserRepositoryIntegrationTests {
 		//AppGroup findWorkGroupById = workgrouprep.findWorkGroupById(1002);
 		int findWorkGroupById = 1001;
 		//List<AppUser> users = this.repository.findAllUsersByWorkGroup(workgrouprep.getOne(findWorkGroupById));
-		AppGroup wkg = workgrouprep.findWorkGroupById(findWorkGroupById);
-		List<AppUser> users = this.repository.findAllUsersByWorkGroup(wkg);
+		AppGroup wkg = workgrouprep.findOne(findWorkGroupById);
+		List<AppUser> users = new ArrayList<AppUser>(1); //this.repository.findAllUsersByWorkGroup(wkg);
 		//System.out.println("Username::::"+userName + "--------------------" + users);
 		
 		System.out.println("users::::"+users.size());

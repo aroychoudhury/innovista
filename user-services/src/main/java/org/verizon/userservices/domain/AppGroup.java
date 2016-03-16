@@ -5,16 +5,20 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.Index;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.verizon.userservices.domain.enums.ActiveTypes;
+import org.verizon.userservices.domain.enums.GroupCreationTypes;
 
 /**
  * This class is having all the information related to the workgroup's;
@@ -23,9 +27,14 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "app_group")
+@Table(name = "app_group", indexes = {
+    @Index(name = "idx_owner_id", columnList = "owner_id", unique = false),
+    @Index(name = "idx_inhrt_group_id", columnList = "inherited_group_id", unique = false),
+    @Index(name = "idx_group_name", columnList = "group_name", unique = true),
+    @Index(name = "idx_group_desc", columnList = "group_desc", unique = true)
+})
 public class AppGroup implements Serializable {
-    private static final long serialVersionUID = 5261309970629813260L;
+    private static final long serialVersionUID = -2013327979003151782L;
 
     @Id
     @GeneratedValue
@@ -38,42 +47,53 @@ public class AppGroup implements Serializable {
     @Column(name = "group_desc", nullable = false)
     private String groupDesc;
 
-    @Column(name = "active_ind", nullable = false, length = 1)
-    private String activeInd = "A"; // set default value
+    @Column(name = "active_ind", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ActiveTypes activeInd;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "app_user_group", joinColumns = {
-        @JoinColumn(name = "group_id", nullable = false, updatable = false)
-    }, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    })
-    private Set<AppUser> users;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    private Set<AppUserGroupRole> userRoles;
 
     @Column(name = "inherited_group_id", nullable = true)
     private int inheritedGroupId;
 
+    @Column(name = "owner_id", nullable = false)
+    private int ownerId;
+
+    @Column(name = "group_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private GroupCreationTypes groupType;
+
     /**
-     * Default constructor.
-     * 
-     * @author abhishek
+     * @param groupName
+     *            group name to be set
+     * @param groupDesc
+     *            short description of the group
+     * @param ownerId
+     * @return
      * @since 1.0
+     * @see AppGroup
      */
-    public AppGroup() {
-        super();
+    public static AppGroup createDefaultGroup(String groupName, String groupDesc, int ownerId) {
+        AppGroup group = new AppGroup();
+        group.setActiveInd(ActiveTypes.ACTIVE);
+        group.setGroupType(GroupCreationTypes.STATIC);
+        group.setGroupName(groupName);
+        group.setGroupDesc(groupDesc);
+        group.setOwnerId(ownerId);
+        return group;
     }
 
     /**
      * @param groupId
-     * @param groupName
-     * @param groupDesc
-     * @author abhishek
+     * @return
      * @since 1.0
+     * @see AppGroup
      */
-    public AppGroup(int groupId, String groupName, String groupDesc) {
-        super();
-        this.groupId = groupId;
-        this.groupName = groupName;
-        this.groupDesc = groupDesc;
+    public static AppGroup createDummyGroup(int groupId) {
+        AppGroup group = new AppGroup();
+        group.setGroupId(groupId);
+        return group;
     }
 
     /**
@@ -137,11 +157,22 @@ public class AppGroup implements Serializable {
     }
 
     /**
+     * @return returns <i>true</i> if the user is active else returns
+     *         <i>false</i>
+     * @since 1.0
+     * @see boolean
+     */
+    @Transient
+    public boolean isActive() {
+        return (ActiveTypes.ACTIVE.equals(activeInd));
+    }
+
+    /**
      * @return the activeInd
      * @since 1.0
-     * @see String
+     * @see ActiveTypes
      */
-    public String getActiveInd() {
+    public ActiveTypes getActiveInd() {
         return activeInd;
     }
 
@@ -149,59 +180,60 @@ public class AppGroup implements Serializable {
      * @param activeInd
      *            the activeInd to set
      * @since 1.0
-     * @see String
+     * @see ActiveTypes
      */
-    public void setActiveInd(String activeInd) {
+    public void setActiveInd(ActiveTypes activeInd) {
         this.activeInd = activeInd;
     }
 
     /**
-     * @return the users
+     * @return the userRoles
      * @since 1.0
-     * @see Set<AppUser>
+     * @see Set<AppUserGroupRole>
      */
-    public Set<AppUser> getUsers() {
-        return users;
+    public Set<AppUserGroupRole> getUserRoles() {
+        return userRoles;
     }
 
     /**
-     * @param users
-     *            the users to set
+     * @param userRoles
+     *            the userRoles to set
      * @since 1.0
-     * @see Set<AppUser>
+     * @see Set<AppUserGroupRole>
      */
-    public void setUsers(Set<AppUser> users) {
-        this.users = users;
+    public void setUserRoles(Set<AppUserGroupRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     /**
-     * @param user
-     *            the user to add
-     * @author abhishek
+     * @param userRole
+     *            the userRole to add
      * @since 1.0
      */
-    public void addUser(AppUser user) {
-        if (null == this.users) {
-            this.users = new HashSet<AppUser>();
+    @Transient
+    public void addUser(AppUserGroupRole userRole) {
+        if (null == this.userRoles) {
+            this.userRoles = new HashSet<AppUserGroupRole>();
         }
-        this.users.add(user);
+        this.userRoles.add(userRole);
     }
 
     /**
      * @param originalUserIds
-     * @author abhishek
+     *            the users to remove
      * @since 1.0
      */
+    @Transient
     public void removeUsers(String... originalUserIds) {
         if (null == originalUserIds || 0 == originalUserIds.length) {
             return;
         }
-        if (null != this.users) {
-            Iterator<AppUser> iterator = this.users.iterator();
+        if (null != this.userRoles) {
+            Iterator<AppUserGroupRole> iterator = this.userRoles.iterator();
             while (iterator.hasNext()) {
-                AppUser user = iterator.next();
+                AppUserGroupRole userRole = iterator.next();
                 for (String originalUserId : originalUserIds) {
-                    if (originalUserId.equals(user.getOriginalUserId())) {
+                    if (originalUserId.equals(userRole.getUser().getOriginalUserId())) {
                         iterator.remove();
                     }
                 }
@@ -229,13 +261,50 @@ public class AppGroup implements Serializable {
     }
 
     /**
+     * @return the ownerId
+     * @since 1.0
+     * @see int
+     */
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    /**
+     * @param ownerId
+     *            the ownerId to set
+     * @since 1.0
+     * @see int
+     */
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    /**
+     * @return the groupType
+     * @since 1.0
+     * @see GroupCreationTypes
+     */
+    public GroupCreationTypes getGroupType() {
+        return groupType;
+    }
+
+    /**
+     * @param groupType
+     *            the groupType to set
+     * @since 1.0
+     * @see GroupCreationTypes
+     */
+    public void setGroupType(GroupCreationTypes groupType) {
+        this.groupType = groupType;
+    }
+
+    /**
      * @author abhishek
      * @since 1.0
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "AppGroup [ " + groupName + " ( " + inheritedGroupId
-                + " ) | " + activeInd + " | users " + (null != users ? users.size() : 0) + " ]";
+        return "Group [ " + groupName + " ( " + inheritedGroupId + " ) : " + activeInd + " | users " + (null != userRoles ? userRoles.size() : 0) + " ]";
     }
 }

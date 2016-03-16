@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.verizon.userservices.domain.AppUser;
-import org.verizon.userservices.domain.AppGroup;
 import org.verizon.userservices.service.UserServiceRepository;
 
 @SpringBootApplication
@@ -29,18 +28,6 @@ public class UserServicesApplication {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                AppUser user = new AppUser();
-                user.setOriginalUserId("v829038");
-                user.setFirstName("Abhishek");
-                user.setLastName("Roychoudhury");
-                user.setEmailId("abhishek.roychoudhury@verizon.com");
-
-                AppGroup workGroup = new AppGroup();
-                workGroup.setGroupId(1001);
-                //user.setGroup(workGroup);
-
-                repository.save(user);
-
                 List<AppUser> users = repository.findAll();
                 for (AppUser userFound : users) {
                     System.out.println(userFound);

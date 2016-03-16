@@ -23,7 +23,7 @@ public class UserWorkGroupServiceImpl implements UserWorkGroupService{
 	@Override
 	public AppGroup getWorkGroupById(int id) {
 		Assert.notNull(id, "Id must not be null");
-		return this.userWkGrpRepository.findWorkGroupById(id);
+		return this.userWkGrpRepository.findOne(id);
 	}
 
 	/*@Override

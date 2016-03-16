@@ -5,7 +5,4 @@ import org.verizon.userservices.domain.AppGroup;
 
 public interface UserWorkGroupServiceRepository extends JpaRepository<AppGroup, Integer >{
 
-	AppGroup findWorkGroupById(int id);
-
-
 }

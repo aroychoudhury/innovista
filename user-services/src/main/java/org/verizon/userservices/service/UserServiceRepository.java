@@ -18,8 +18,4 @@ public interface UserServiceRepository extends JpaRepository<AppUser, Integer>{
 
 	AppUser findUserByLastName(String fname);
 
-	AppUser findByGarmLevel(int userId);
-
-	List<AppUser> findAllUsersByWorkGroup(AppGroup wrkgrpId);
-
 }

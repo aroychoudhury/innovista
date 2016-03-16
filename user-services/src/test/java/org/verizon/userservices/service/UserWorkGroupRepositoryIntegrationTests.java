@@ -42,7 +42,7 @@ public class UserWorkGroupRepositoryIntegrationTests {
 		//List<AppUser> users = this.repository.findAll();
 		//AppUser userName = this.repository.findUserByUserId(101);
 		//this.repository.deleteUserByUserId(102);
-		AppGroup wkgrp = this.repository.findWorkGroupById(1001);
+		AppGroup wkgrp = this.repository.findOne(1001);
 		
 		//System.out.println("Username::::"+userName + "--------------------" + users);
 		

@@ -51,9 +51,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<AppUser> getAllUsers(int wrkgrpId) {
 		log.debug("getAllUsers() - Entering ");
-		AppGroup wkg = workgrouprep.findWorkGroupById(wrkgrpId);
+		AppGroup wkg = workgrouprep.findOne(wrkgrpId);
 		log.debug("getAllUsers() - Exiting ");
-		return this.userRepository.findAllUsersByWorkGroup(wkg);
+		//return this.userRepository.findAllUsersByWorkGroup(wkg);
+		return null;
 	}
 	
 	@Override
@@ -61,7 +62,8 @@ public class UserServiceImpl implements UserService {
 		log.debug("getUserByGarmLevel() - Entering ");
 		Assert.notNull(userId, "userId must not be null");
 		log.debug("getUserByGarmLevel() - Exiting ");
-		return this.userRepository.findByGarmLevel(userId);
+		//return this.userRepository.findByGarmLevel(userId);
+		return null;
 	}
 	
 	@Override
